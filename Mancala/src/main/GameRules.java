@@ -32,14 +32,14 @@ public class GameRules {
 	}
 	
 	//Check if a given compartment is empty or not
-	private void checkEmpty(int compartmentChosen) {
-		if (compartmentChosen <= 0) { //Compartment is empty
-			//Tell the player that the given compartment has no pieces in it to move.
-			System.out.println("Chosen compartment doesn't have any pieces in it to move. Please pick a different compartment."); //FIXME: Replace me
-			//Return to player turn and let them choose another compartment to move
+		private void checkEmpty(int compartmentChosen) {
+			if (compartmentChosen <= 0) { //Compartment is empty
+				//Tell the player that the given compartment has no pieces in it to move.
+				System.out.println("Chosen compartment doesn't have any pieces in it to move. Please pick a different compartment."); //FIXME: Replace me
+				//Return to player turn and let them choose another compartment to move
+			}
+			else { //Compartment has 1 or more pieces in it
+				//Move onto code for moving the pieces
+			}
 		}
-		else { //Compartment has 1 or more pieces in it
-			//Move onto code for moving the pieces
-		}
-	}
 }
