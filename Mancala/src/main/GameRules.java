@@ -2,6 +2,23 @@ package main;
 
 public class GameRules {
 	
+
+	void stoneMovement() {
+		int stoneNumber = Pocket[selection];//gets the current selected number of stones
+		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
+		selection += 1; //Makes sure that it starts adding to next pocket
+		for (x= = stoneNumber, x > 0, x--) {//Loops through until all stones are used 
+			if (selection == maxNumber) { //uses this if statment if max number of array is reached
+				Pocket[selection] +=1; // adds 1 to current pocket
+				selection = 0; // resets to begining 
+			}
+			else { // if still with in bounds of array
+				Pocket[selection] +=1;
+				selection += 1; // continues to next pocket
+      }
+    }
+
+        
 	//Checks to see if the player who's turn it is can make the move depending on if the compartment chosen is on their side or not.
 	private void sideCheck(int compartment, int player) {
 		int playerTurn = player; //TEMP VARIABLE. Replace with variable that holds which player's turn it is.
@@ -27,9 +44,10 @@ public class GameRules {
 				//Tell the player that the chosen compartment is not on their side.
 				System.out.println("Chosen compartment is not on your side of the board. Please pick a different compartment."); //FIXME: Replace me
 				//Return to player turn and let them choose another compartment to move
-			}
-		}
-	}
+      }
+    }
+  }
+
 	
 	//Check if a given compartment is empty or not
 		private void checkEmpty(int compartmentChosen) {
