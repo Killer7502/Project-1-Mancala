@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 public class GameRules {
 	
 	//Checks to see if the player who's turn it is can make the move depending on if the compartment chosen is on their side or not.
@@ -19,7 +21,7 @@ public class GameRules {
 		}
 		//Check if it's player 2's turn
 		else if (playerTurn == 2) { 
-			if (compartmentChosen >= 8 && compartmentChosen <= 13) { //Compartment is on player's side (Top side)
+			if (compartmentChosen >= 7 && compartmentChosen <= 12) { //Compartment is on player's side (Top side)
 				//Chosen compartment is on the correct side for the player.
 				checkEmpty(compartmentChosen);
 			}
@@ -40,6 +42,31 @@ public class GameRules {
 			}
 			else { //Compartment has 1 or more pieces in it
 				//Move onto code for moving the pieces
+			}
+		}
+		
+		//Check if the either side of the board is empty of pieces. If true, end game and proceed to scoring.
+		private void checkGameEnd(ArrayList<Integer> game) {
+			int sideBottom = 6; //Number of pockets on Bottom side
+			int sideTop = 6; //Number of pockets on Top side
+			
+			//Check bottom side for empty pockets
+			for (int i = 0; i < 6; i++) {
+				if (game.get(i) == 0) {
+					sideBottom--;
+				}
+			}
+			
+			//Check top side for empty pockets
+			for (int i = 6; i < 12; i++) {
+				if (game.get(i) == 0) {
+					sideTop--;
+				}
+			}
+			
+			//If sideBottom or sideTop are equal to 0, that means that one of the sides has no pieces left on it, which means the game is over.
+			if (sideBottom == 0 || sideTop == 0) {
+				gameEnd(); //FIXME: Replace with method for handling the end of the game.
 			}
 		}
 }
