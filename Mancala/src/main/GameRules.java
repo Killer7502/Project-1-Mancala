@@ -47,25 +47,27 @@ public class GameRules {
 		
 		//Check if the either side of the board is empty of pieces. If true, end game and proceed to scoring.
 		private void checkGameEnd(ArrayList<Integer> game) {
-			int sideBottom = 6; //Number of pockets on Bottom side
-			int sideTop = 6; //Number of pockets on Top side
+			Boolean sideBottom = true; //Variable to store if there are no pieces on this side of the board. True means no pieces left.
+			Boolean sideTop = true; // Variable to store if there are no pieces on this side of the board. True means no pieces left.
 			
-			//Check bottom side for empty pockets
+			//Check bottom side for empty pockets. If any pocket does not equal 0, break as there are still pieces left on this side.
 			for (int i = 0; i < 6; i++) {
-				if (game.get(i) == 0) {
-					sideBottom--;
+				if (game.get(i) != 0) {
+					sideBottom = false;
+					break;
 				}
 			}
 			
-			//Check top side for empty pockets
+			//Check top side for empty pockets. If any pocket does not equal 0, break as there are still pieces left on this side.
 			for (int i = 6; i < 12; i++) {
-				if (game.get(i) == 0) {
-					sideTop--;
+				if (game.get(i) != 0) {
+					sideTop = false;
+					break;
 				}
 			}
 			
-			//If sideBottom or sideTop are equal to 0, that means that one of the sides has no pieces left on it, which means the game is over.
-			if (sideBottom == 0 || sideTop == 0) {
+			//If sideBottom or sideTop is true, that means that one of the sides has no pieces left on it, which means the game is over.
+			if (sideBottom == true || sideTop == true) {
 				gameEnd(); //FIXME: Replace with method for handling the end of the game.
 			}
 		}
