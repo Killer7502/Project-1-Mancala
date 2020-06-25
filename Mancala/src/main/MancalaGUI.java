@@ -18,7 +18,7 @@ import javax.swing.JButton;
 /**
  * Basic Mancala board GUI.
  * @author Natalie Williams
- * @version 1.0
+ * @version 1.1
  */
 public class MancalaGUI {
 
@@ -51,6 +51,16 @@ public class MancalaGUI {
 	private JButton btnB4;
 	private JButton btnB5;
 	private JButton btnB6;
+	private JTextArea textArea;
+	
+	private int[] pocketCount = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0};
+	/* First 6 elements are the bottom pockets from left to right,
+	 * next 6 elements are the top pockets from left to right,
+	 * and the last two elements are the left and right Mancala in that order.
+	 */
+	
+	private int turnCount = 0; // Keeps track of the players turn.
+	private boolean bonusTurn = false;	// Stores whether or not the player gets an extra turn that round.
 
 	/**
 	 * Launch the application.
@@ -118,18 +128,19 @@ public class MancalaGUI {
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
 								.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)))
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addGap(414)
-							.addComponent(btnStart, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnStart, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
 							.addGap(60)
-							.addComponent(btnExit, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnExit, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+							.addGap(405)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnExit)
@@ -143,14 +154,14 @@ public class MancalaGUI {
 		txtLeftMancala.setColumns(10);
 		txtLeftMancala.setEditable(false);
 		txtLeftMancala.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtLeftMancala.setText("        0");
+		txtLeftMancala.setText("        " + pocketCount[12]);
 		txtLeftMancala.setBackground(SystemColor.textHighlightText);
 		
 		txtRightMancala = new RoundedTextField(15);
 		txtRightMancala.setColumns(10);
 		txtRightMancala.setEditable(false);
 		txtRightMancala.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtRightMancala.setText("        0");
+		txtRightMancala.setText("        " + pocketCount[13]);
 		txtRightMancala.setBackground(SystemColor.textHighlightText);
 		
 		txtPocketA1 = new RoundedTextField(15);
@@ -158,84 +169,84 @@ public class MancalaGUI {
 		txtPocketA1.setEditable(false);
 		txtPocketA1.setBackground(SystemColor.textHighlightText);
 		txtPocketA1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA1.setText("      4");
+		txtPocketA1.setText("      " + pocketCount[0]);
 		
 		txtPocketA2 = new RoundedTextField(15);
 		txtPocketA2.setColumns(10);
 		txtPocketA2.setEditable(false);
 		txtPocketA2.setBackground(SystemColor.textHighlightText);
 		txtPocketA2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA2.setText("      4");
+		txtPocketA2.setText("      " + pocketCount[1]);
 		
 		txtPocketA3 = new RoundedTextField(15);
 		txtPocketA3.setColumns(10);
 		txtPocketA3.setEditable(false);
 		txtPocketA3.setBackground(SystemColor.textHighlightText);
 		txtPocketA3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA3.setText("      4");
+		txtPocketA3.setText("      " + pocketCount[2]);
 		
 		txtPocketA4 = new RoundedTextField(15);
 		txtPocketA4.setColumns(10);
 		txtPocketA4.setEditable(false);
 		txtPocketA4.setBackground(SystemColor.textHighlightText);
 		txtPocketA4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA4.setText("      4");
+		txtPocketA4.setText("      " + pocketCount[3]);
 		
 		txtPocketA5 = new RoundedTextField(15);
 		txtPocketA5.setColumns(10);
 		txtPocketA5.setEditable(false);
 		txtPocketA5.setBackground(SystemColor.textHighlightText);
 		txtPocketA5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA5.setText("      4");
+		txtPocketA5.setText("      " + pocketCount[4]);
 		
 		txtPocketA6 = new RoundedTextField(15);
 		txtPocketA6.setColumns(10);
 		txtPocketA6.setEditable(false);
 		txtPocketA6.setBackground(SystemColor.textHighlightText);
 		txtPocketA6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA6.setText("      4");
+		txtPocketA6.setText("      " + pocketCount[5]);
 		
 		txtPocketB1 = new RoundedTextField(15);
 		txtPocketB1.setColumns(10);
 		txtPocketB1.setEditable(false);
 		txtPocketB1.setBackground(SystemColor.textHighlightText);
 		txtPocketB1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB1.setText("      4");
+		txtPocketB1.setText("      " + pocketCount[6]);
 		
 		txtPocketB2 = new RoundedTextField(15);
 		txtPocketB2.setColumns(10);
 		txtPocketB2.setEditable(false);
 		txtPocketB2.setBackground(SystemColor.textHighlightText);
 		txtPocketB2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB2.setText("      4");
+		txtPocketB2.setText("      " + pocketCount[7]);
 		
 		txtPocketB3 = new RoundedTextField(15);
 		txtPocketB3.setColumns(10);
 		txtPocketB3.setEditable(false);
 		txtPocketB3.setBackground(SystemColor.textHighlightText);
 		txtPocketB3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB3.setText("      4");
+		txtPocketB3.setText("      " + pocketCount[8]);
 		
 		txtPocketB4 = new RoundedTextField(15);
 		txtPocketB4.setColumns(10);
 		txtPocketB4.setEditable(false);
 		txtPocketB4.setBackground(SystemColor.textHighlightText);
 		txtPocketB4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB4.setText("      4");
+		txtPocketB4.setText("      " + pocketCount[9]);
 		
 		txtPocketB5 = new RoundedTextField(15);
 		txtPocketB5.setColumns(10);
 		txtPocketB5.setEditable(false);
 		txtPocketB5.setBackground(SystemColor.textHighlightText);
 		txtPocketB5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB5.setText("      4");
+		txtPocketB5.setText("      " + pocketCount[10]);
 		
 		txtPocketB6 = new RoundedTextField(15);
 		txtPocketB6.setColumns(10);
 		txtPocketB6.setEditable(false);
 		txtPocketB6.setBackground(SystemColor.textHighlightText);
 		txtPocketB6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB6.setText("      4");
+		txtPocketB6.setText("      " + pocketCount[11]);
 		
 		btnA1 = new JButton("A-1");
 		btnA1.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -256,21 +267,27 @@ public class MancalaGUI {
 		btnA6.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnB1 = new JButton("B-1");
+		btnB1.setEnabled(false);
 		btnB1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnB2 = new JButton("B-2");
+		btnB2.setEnabled(false);
 		btnB2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnB3 = new JButton("B-3");
+		btnB3.setEnabled(false);
 		btnB3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnB4 = new JButton("B-4");
+		btnB4.setEnabled(false);
 		btnB4.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnB5 = new JButton("B-5");
+		btnB5.setEnabled(false);
 		btnB5.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnB6 = new JButton("B-6");
+		btnB6.setEnabled(false);
 		btnB6.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -280,10 +297,10 @@ public class MancalaGUI {
 					.addGap(31)
 					.addComponent(txtLeftMancala, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 					.addGap(45)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-							.addComponent(btnA1, 0, 0, Short.MAX_VALUE)
-							.addGroup(Alignment.LEADING, gl_panel.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(btnA1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(txtPocketA1, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
 								.addComponent(txtPocketB1, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)))
 						.addComponent(btnB1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
@@ -299,7 +316,7 @@ public class MancalaGUI {
 						.addComponent(txtPocketB3, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnA3, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnB3, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
-					.addGap(59)
+					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(txtPocketA4, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtPocketB4, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
@@ -317,7 +334,7 @@ public class MancalaGUI {
 						.addComponent(btnA6, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtPocketA6, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtPocketB6, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+					.addGap(41)
 					.addComponent(txtRightMancala, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 					.addGap(33))
 		);
@@ -371,7 +388,7 @@ public class MancalaGUI {
 		);
 		panel.setLayout(gl_panel);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 		frmMancala.getContentPane().setLayout(groupLayout);
 	}
