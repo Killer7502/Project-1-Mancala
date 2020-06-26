@@ -14,11 +14,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.awt.SystemColor;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * Basic Mancala board GUI.
  * @author Natalie Williams
- * @version 1.1
+ * @version 1.2
  */
 public class MancalaGUI {
 
@@ -51,7 +53,7 @@ public class MancalaGUI {
 	private JButton btnB4;
 	private JButton btnB5;
 	private JButton btnB6;
-	private JTextArea textArea;
+	private JTextArea txtrGameLog;
 	
 	private int[] pocketCount = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0};
 	/* First 6 elements are the bottom pockets from left to right,
@@ -59,7 +61,8 @@ public class MancalaGUI {
 	 * and the last two elements are the left and right Mancala in that order.
 	 */
 	
-	private int turnCount = 0; // Keeps track of the players turn.
+	private int pocketIndex;	// Index of selected pocket.
+	private int playerTurn = 0; // Keeps track of the players turn. 1 = Player 1, 2 = Player 2
 	private boolean bonusTurn = false;	// Stores whether or not the player gets an extra turn that round.
 
 	/**
@@ -85,6 +88,71 @@ public class MancalaGUI {
 		initialize();
 		eventHandler();
 	}
+	/**
+	 * Method for handling turns,
+	 * pocketIndex should be passed to i.
+	 * @param i
+	 */
+	private void turnHandler(int i) {
+		if (pocketCount[i] <= 0) {
+			txtrGameLog.append("\n\nError: Pocket empty.\n");
+		}
+		else {
+			//TODO: Add method call for GameRules class.
+			
+			switch (playerTurn) {
+			case 1:
+				txtrGameLog.append("\nPlayer 1 moved their pieces.");
+				if (bonusTurn) {
+					txtrGameLog.append("\nPlayer 1 landed in their own Mancala! Go again.");
+					bonusTurn = false;
+				}
+				else {
+					txtrGameLog.append("\n\nPlayer 2's turn.");
+					
+					btnA1.setEnabled(false);
+					btnA2.setEnabled(false);
+					btnA3.setEnabled(false);
+					btnA4.setEnabled(false);
+					btnA5.setEnabled(false);
+					btnA6.setEnabled(false);
+					
+					btnB1.setEnabled(true);
+					btnB2.setEnabled(true);
+					btnB3.setEnabled(true);
+					btnB4.setEnabled(true);
+					btnB5.setEnabled(true);
+					btnB6.setEnabled(true);
+				}
+				break;
+				
+			case 2:
+				txtrGameLog.append("\nPlayer 2 moved their pieces.");
+				if (bonusTurn) {
+					txtrGameLog.append("\nPlayer 2 landed in their own Mancala! Go again.");
+					bonusTurn = false;
+				}
+				else {
+					txtrGameLog.append("\n\nPlayer 1's turn.");
+					
+					btnB1.setEnabled(false);
+					btnB2.setEnabled(false);
+					btnB3.setEnabled(false);
+					btnB4.setEnabled(false);
+					btnB5.setEnabled(false);
+					btnB6.setEnabled(false);
+					
+					btnA1.setEnabled(true);
+					btnA2.setEnabled(true);
+					btnA3.setEnabled(true);
+					btnA4.setEnabled(true);
+					btnA5.setEnabled(true);
+					btnA6.setEnabled(true);
+				}
+				break;
+			}
+		}
+	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	// EVENT HANDLER
@@ -93,7 +161,120 @@ public class MancalaGUI {
 	 * Handles events.
 	 */
 	private void eventHandler() {
+		btnA1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 1;
+				pocketIndex = 0;
+				turnHandler(pocketIndex);
+			}
+		});
 		
+		btnA2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 1;
+				pocketIndex = 1;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnA3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 1;
+				pocketIndex = 2;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnA4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 1;
+				pocketIndex = 3;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnA5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 1;
+				pocketIndex = 4;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnA6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 1;
+				pocketIndex = 5;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnB1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 2;
+				pocketIndex = 6;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnB2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 2;
+				pocketIndex = 7;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnB3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 2;
+				pocketIndex = 8;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnB4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 2;
+				pocketIndex = 9;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnB5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 2;
+				pocketIndex = 10;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnB6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerTurn = 2;
+				pocketIndex = 11;
+				turnHandler(pocketIndex);
+			}
+		});
+		
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtrGameLog.append("\n\nPlayer 1's turn.");
+				btnStart.setEnabled(false);
+				btnA1.setEnabled(true);
+				btnA2.setEnabled(true);
+				btnA3.setEnabled(true);
+				btnA4.setEnabled(true);
+				btnA5.setEnabled(true);
+				btnA6.setEnabled(true);
+			}
+		});
+		
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,21 +430,27 @@ public class MancalaGUI {
 		txtPocketB6.setText("      " + pocketCount[11]);
 		
 		btnA1 = new JButton("A-1");
+		btnA1.setEnabled(false);
 		btnA1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnA2 = new JButton("A-2");
+		btnA2.setEnabled(false);
 		btnA2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnA3 = new JButton("A-3");
+		btnA3.setEnabled(false);
 		btnA3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnA4 = new JButton("A-4");
+		btnA4.setEnabled(false);
 		btnA4.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnA5 = new JButton("A-5");
+		btnA5.setEnabled(false);
 		btnA5.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnA6 = new JButton("A-6");
+		btnA6.setEnabled(false);
 		btnA6.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
 		btnB1 = new JButton("B-1");
@@ -298,11 +485,10 @@ public class MancalaGUI {
 					.addComponent(txtLeftMancala, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
 					.addGap(45)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnA1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(btnA1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(txtPocketA1, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-								.addComponent(txtPocketB1, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)))
+							.addComponent(txtPocketA1, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+							.addComponent(txtPocketB1, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
 						.addComponent(btnB1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
 					.addGap(40)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
@@ -322,13 +508,14 @@ public class MancalaGUI {
 						.addComponent(txtPocketB4, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnA4, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnB4, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
-					.addGap(57)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtPocketA5, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtPocketB5, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnA5, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnB5, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
-					.addGap(37)
+					.addPreferredGap(ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+							.addComponent(btnB5, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtPocketB5, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnA5, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtPocketA5, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE))
+					.addGap(45)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnB6, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnA6, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
@@ -355,8 +542,8 @@ public class MancalaGUI {
 								.addComponent(txtPocketB2, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPocketB3, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPocketB4, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPocketB5, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPocketB6, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtPocketB6, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtPocketB5, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnB1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
@@ -364,16 +551,16 @@ public class MancalaGUI {
 									.addComponent(btnB2, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 									.addComponent(btnB3, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 									.addComponent(btnB4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnB5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnB6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(btnB6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnB5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
 							.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(txtPocketA1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPocketA2, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPocketA3, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPocketA4, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPocketA5, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtPocketA6, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtPocketA6, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtPocketA5, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
@@ -382,14 +569,16 @@ public class MancalaGUI {
 								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 									.addComponent(btnA3, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 									.addComponent(btnA4, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnA5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnA6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(btnA6, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnA5, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
 							.addGap(23))))
 		);
 		panel.setLayout(gl_panel);
 		
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
+		txtrGameLog = new JTextArea();
+		txtrGameLog.setFont(new Font("Monospaced", Font.PLAIN, 16));
+		txtrGameLog.setText("Press Start to begin.");
+		scrollPane.setViewportView(txtrGameLog);
 		frmMancala.getContentPane().setLayout(groupLayout);
 	}
 }
