@@ -8,23 +8,22 @@ public class GameRules {
 		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
 		selection += 1; //Makes sure that it starts adding to next pocket
 		for (int x = stoneNumber; x > 0; x--) {//Loops through until all stones are used 
-			if (selection == 14) { //uses this if statement if max number of array is reached
-				if (playerTurn == 2) {
-					Pocket[selection] +=1; // adds 1 to current pocket
-					if (x != 1) {
-						selection = 1; // resets to beginning 
-					}
-					
-				}
-				else {
-					selection = 1; // resets to beginning 
-					Pocket[selection] +=1; // adds 1 to current pocket
-					
-					if (x != 1) {
-						selection += 1; // continues to next pocket
-					}
+			if (selection == 13) { //uses this if statement if max number of array is reached
+				
+				Pocket[selection] +=1; // adds 1 to current pocket
+				if (x != 1) {
+					selection = 0; // resets to beginning 
 				}
 				
+				
+			}
+			
+			else if (playerTurn == 1 && selection == 0) {
+				selection = 1; // continues to next pocket skipping opponents mancala 
+				Pocket[selection] +=1;
+				if (x != 1) {
+					selection += 1; // continues to next pocket
+				}
 			}
 			
 			
@@ -66,6 +65,19 @@ public class GameRules {
 		}
 		
 		
+	}
+	
+	void capturePocket(boolean emptyPocket) {
+		if (emptyPocket == true) {
+			
+		}
+	}
+	
+	boolean checkPocket(){
+		return emptyPocket;
+	}
+	boolean bonusTurn(){
+		return bonusTurn;
 	}
 	
 	
