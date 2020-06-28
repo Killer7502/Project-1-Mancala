@@ -3,6 +3,7 @@ package main;
 public class GameRules {
 	
 	boolean emptyPocket = false;
+	boolean bonusTurn = false;
 	void stoneMovement(int [] Pocket, int selection, int playerTurn) {
 		int stoneNumber = Pocket[selection];//gets the current selected number of stones
 		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
@@ -48,18 +49,21 @@ public class GameRules {
 			
 			
 			//checks if on final stone if the pocket was empty and what players turn it was
-			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection < 7) {
+			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection <= 7 && selection != 0) {
 				emptyPocket = true;
 			}
-			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 && selection < 14 && selection > 7) {
-				emptyPocket = true;
+			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 ) {
+				if (selection > 7 || selection == 0) {
+					emptyPocket = true;
+				}
+				
 			}
 			
 			
 			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection == 7) {
 				bonusTurn = true;
 			}
-			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 && selection == 14) {
+			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 && selection == 0) {
 				bonusTurn = true;
 			}
 		}
