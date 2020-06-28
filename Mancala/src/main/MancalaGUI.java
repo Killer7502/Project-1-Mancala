@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 /**
  * Basic Mancala board GUI.
  * @author Natalie Williams
- * @version 1.2
+ * @version 1.3
  */
 public class MancalaGUI {
 
@@ -55,15 +55,17 @@ public class MancalaGUI {
 	private JButton btnB6;
 	private JTextArea txtrGameLog;
 	
-	private int[] pocketCount = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0};
-	/* First 6 elements are the bottom pockets from left to right,
-	 * next 6 elements are the top pockets from left to right,
-	 * and the last two elements are the left and right Mancala in that order.
+	private int[] pocketCount = {0, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4};
+	/* the array starts with the left Mancala and works it's way counter clockwise around the board.
+	 * Example: Elements 2 through 7 are the bottom pockets from left to right,
+	 * element 8 is the right Mancala,
+	 * and elements 9 through 14 are the top pockets from right to left.
 	 */
 	
 	private int pocketIndex;	// Index of selected pocket.
 	private int playerTurn = 0; // Keeps track of the players turn. 1 = Player 1, 2 = Player 2
 	private boolean bonusTurn = false;	// Stores whether or not the player gets an extra turn that round.
+	private boolean emptyPocket = true; // Stores whether or not the players last piece landed in an empty pocket.
 
 	/**
 	 * Launch the application.
@@ -99,10 +101,19 @@ public class MancalaGUI {
 		}
 		else {
 			//TODO: Add method call for GameRules class.
+			//TODO: Add method call for GameRules class.
+			//TODO: Add method call for GameRules class.
 			
 			switch (playerTurn) {
 			case 1:
 				txtrGameLog.append("\nPlayer 1 moved their pieces.");
+				
+				if (emptyPocket) {
+					txtrGameLog.append("\nPlayer 1 landed in an empty pocket!");
+					txtrGameLog.append("\nCollected all pieces on the opposite pocket.");
+					emptyPocket = false;
+				}
+				
 				if (bonusTurn) {
 					txtrGameLog.append("\nPlayer 1 landed in their own Mancala! Go again.");
 					bonusTurn = false;
@@ -128,6 +139,13 @@ public class MancalaGUI {
 				
 			case 2:
 				txtrGameLog.append("\nPlayer 2 moved their pieces.");
+				
+				if (emptyPocket) {
+					txtrGameLog.append("\nPlayer 2 landed in an empty pocket!");
+					txtrGameLog.append("\nCollected all pieces on the opposite pocket.");
+					emptyPocket = false;
+				}
+				
 				if (bonusTurn) {
 					txtrGameLog.append("\nPlayer 2 landed in their own Mancala! Go again.");
 					bonusTurn = false;
@@ -164,7 +182,7 @@ public class MancalaGUI {
 		btnA1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 1;
-				pocketIndex = 0;
+				pocketIndex = 1;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -172,7 +190,7 @@ public class MancalaGUI {
 		btnA2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 1;
-				pocketIndex = 1;
+				pocketIndex = 2;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -180,7 +198,7 @@ public class MancalaGUI {
 		btnA3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 1;
-				pocketIndex = 2;
+				pocketIndex = 3;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -188,7 +206,7 @@ public class MancalaGUI {
 		btnA4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 1;
-				pocketIndex = 3;
+				pocketIndex = 4;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -196,7 +214,7 @@ public class MancalaGUI {
 		btnA5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 1;
-				pocketIndex = 4;
+				pocketIndex = 5;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -204,7 +222,7 @@ public class MancalaGUI {
 		btnA6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 1;
-				pocketIndex = 5;
+				pocketIndex = 6;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -212,7 +230,7 @@ public class MancalaGUI {
 		btnB1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 2;
-				pocketIndex = 6;
+				pocketIndex = 13;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -220,7 +238,7 @@ public class MancalaGUI {
 		btnB2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 2;
-				pocketIndex = 7;
+				pocketIndex = 12;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -228,7 +246,7 @@ public class MancalaGUI {
 		btnB3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 2;
-				pocketIndex = 8;
+				pocketIndex = 11;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -236,7 +254,7 @@ public class MancalaGUI {
 		btnB4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 2;
-				pocketIndex = 9;
+				pocketIndex = 10;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -244,7 +262,7 @@ public class MancalaGUI {
 		btnB5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 2;
-				pocketIndex = 10;
+				pocketIndex = 9;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -252,7 +270,7 @@ public class MancalaGUI {
 		btnB6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 2;
-				pocketIndex = 11;
+				pocketIndex = 8;
 				turnHandler(pocketIndex);
 			}
 		});
@@ -335,14 +353,14 @@ public class MancalaGUI {
 		txtLeftMancala.setColumns(10);
 		txtLeftMancala.setEditable(false);
 		txtLeftMancala.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtLeftMancala.setText("        " + pocketCount[12]);
+		txtLeftMancala.setText("        " + pocketCount[0]);
 		txtLeftMancala.setBackground(SystemColor.textHighlightText);
 		
 		txtRightMancala = new RoundedTextField(15);
 		txtRightMancala.setColumns(10);
 		txtRightMancala.setEditable(false);
 		txtRightMancala.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtRightMancala.setText("        " + pocketCount[13]);
+		txtRightMancala.setText("        " + pocketCount[7]);
 		txtRightMancala.setBackground(SystemColor.textHighlightText);
 		
 		txtPocketA1 = new RoundedTextField(15);
@@ -350,84 +368,84 @@ public class MancalaGUI {
 		txtPocketA1.setEditable(false);
 		txtPocketA1.setBackground(SystemColor.textHighlightText);
 		txtPocketA1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA1.setText("      " + pocketCount[0]);
+		txtPocketA1.setText("      " + pocketCount[1]);
 		
 		txtPocketA2 = new RoundedTextField(15);
 		txtPocketA2.setColumns(10);
 		txtPocketA2.setEditable(false);
 		txtPocketA2.setBackground(SystemColor.textHighlightText);
 		txtPocketA2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA2.setText("      " + pocketCount[1]);
+		txtPocketA2.setText("      " + pocketCount[2]);
 		
 		txtPocketA3 = new RoundedTextField(15);
 		txtPocketA3.setColumns(10);
 		txtPocketA3.setEditable(false);
 		txtPocketA3.setBackground(SystemColor.textHighlightText);
 		txtPocketA3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA3.setText("      " + pocketCount[2]);
+		txtPocketA3.setText("      " + pocketCount[3]);
 		
 		txtPocketA4 = new RoundedTextField(15);
 		txtPocketA4.setColumns(10);
 		txtPocketA4.setEditable(false);
 		txtPocketA4.setBackground(SystemColor.textHighlightText);
 		txtPocketA4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA4.setText("      " + pocketCount[3]);
+		txtPocketA4.setText("      " + pocketCount[4]);
 		
 		txtPocketA5 = new RoundedTextField(15);
 		txtPocketA5.setColumns(10);
 		txtPocketA5.setEditable(false);
 		txtPocketA5.setBackground(SystemColor.textHighlightText);
 		txtPocketA5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA5.setText("      " + pocketCount[4]);
+		txtPocketA5.setText("      " + pocketCount[5]);
 		
 		txtPocketA6 = new RoundedTextField(15);
 		txtPocketA6.setColumns(10);
 		txtPocketA6.setEditable(false);
 		txtPocketA6.setBackground(SystemColor.textHighlightText);
 		txtPocketA6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketA6.setText("      " + pocketCount[5]);
+		txtPocketA6.setText("      " + pocketCount[6]);
 		
 		txtPocketB1 = new RoundedTextField(15);
 		txtPocketB1.setColumns(10);
 		txtPocketB1.setEditable(false);
 		txtPocketB1.setBackground(SystemColor.textHighlightText);
 		txtPocketB1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB1.setText("      " + pocketCount[6]);
+		txtPocketB1.setText("      " + pocketCount[13]);
 		
 		txtPocketB2 = new RoundedTextField(15);
 		txtPocketB2.setColumns(10);
 		txtPocketB2.setEditable(false);
 		txtPocketB2.setBackground(SystemColor.textHighlightText);
 		txtPocketB2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB2.setText("      " + pocketCount[7]);
+		txtPocketB2.setText("      " + pocketCount[12]);
 		
 		txtPocketB3 = new RoundedTextField(15);
 		txtPocketB3.setColumns(10);
 		txtPocketB3.setEditable(false);
 		txtPocketB3.setBackground(SystemColor.textHighlightText);
 		txtPocketB3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB3.setText("      " + pocketCount[8]);
+		txtPocketB3.setText("      " + pocketCount[11]);
 		
 		txtPocketB4 = new RoundedTextField(15);
 		txtPocketB4.setColumns(10);
 		txtPocketB4.setEditable(false);
 		txtPocketB4.setBackground(SystemColor.textHighlightText);
 		txtPocketB4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB4.setText("      " + pocketCount[9]);
+		txtPocketB4.setText("      " + pocketCount[10]);
 		
 		txtPocketB5 = new RoundedTextField(15);
 		txtPocketB5.setColumns(10);
 		txtPocketB5.setEditable(false);
 		txtPocketB5.setBackground(SystemColor.textHighlightText);
 		txtPocketB5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB5.setText("      " + pocketCount[10]);
+		txtPocketB5.setText("      " + pocketCount[9]);
 		
 		txtPocketB6 = new RoundedTextField(15);
 		txtPocketB6.setColumns(10);
 		txtPocketB6.setEditable(false);
 		txtPocketB6.setBackground(SystemColor.textHighlightText);
 		txtPocketB6.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtPocketB6.setText("      " + pocketCount[11]);
+		txtPocketB6.setText("      " + pocketCount[8]);
 		
 		btnA1 = new JButton("A-1");
 		btnA1.setEnabled(false);
