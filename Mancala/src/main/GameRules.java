@@ -9,10 +9,17 @@ public class GameRules {
 		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
 		selection += 1; //Makes sure that it starts adding to next pocket
 		for (int x = stoneNumber; x > 0; x--) {//Loops through until all stones are used 
+			
+		
+			if (x == stoneNumber) { // If fist part of loop make sure booleans are false
+				emptyPocket = false;
+				bonusTurn = false;
+			}
+			
 			if (selection == 13) { //uses this if statement if max number of array is reached
 				
 				Pocket[selection] +=1; // adds 1 to current pocket
-				if (x != 1) {
+				if (x != 1) { // makes sure that it is not last part of the loop
 					selection = 0; // resets to beginning 
 				}
 				
@@ -23,7 +30,7 @@ public class GameRules {
 				selection = 1; // continues to next pocket skipping opponents mancala 
 				Pocket[selection] +=1;
 				if (x != 1) {
-					selection += 1; // continues to next pocket
+					selection += 1; // continues to next pocket if not last part of loop
 				}
 			}
 			
@@ -49,33 +56,94 @@ public class GameRules {
 			
 			
 			//checks if on final stone if the pocket was empty and what players turn it was
-			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection <= 7 && selection != 0) {
+			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection < 7 && selection != 0) {
 				emptyPocket = true;
-			}
-			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 ) {
-				if (selection > 7 || selection == 0) {
-					emptyPocket = true;
+				
+				switch (selection) {//captures other side and adds to mancala
+				case 1: 
+					Pocket[7] += (Pocket[1] + Pocket[13]);
+					Pocket[1] = 0;
+					Pocket[13] = 0;
+					break;
+				case 2: 
+					Pocket[7] += (Pocket[2] + Pocket[12]);
+					Pocket[2] = 0;
+					Pocket[12] = 0;
+					break;
+				case 3: 
+					Pocket[7] += (Pocket[3] + Pocket[11]);
+					Pocket[3] = 0;
+					Pocket[11] = 0;
+					break;
+				case 4: 
+					Pocket[7] += (Pocket[4] + Pocket[10]);
+					Pocket[4] = 0;
+					Pocket[10] = 0;
+					break;
+				case 5: 
+					Pocket[7] += (Pocket[5] + Pocket[9]);
+					Pocket[5] = 0;
+					Pocket[9] = 0;
+					break;
+					
+				case 6: 
+					Pocket[7] += (Pocket[6] + Pocket[8]);
+					Pocket[6] = 0;
+					Pocket[8] = 0;
+					break;
 				}
+			
+			}
+			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 && selection > 7 ) {
+					emptyPocket = true;
+					switch (selection) {
+					case 8: 
+						Pocket[0] += (Pocket[1] + Pocket[13]);
+						Pocket[1] = 0;
+						Pocket[13] = 0;
+						break;
+					case 9: 
+						Pocket[0] += (Pocket[2] + Pocket[12]);
+						Pocket[2] = 0;
+						Pocket[12] = 0;
+						break;
+					case 10: 
+						Pocket[0] += (Pocket[3] + Pocket[11]);
+						Pocket[3] = 0;
+						Pocket[11] = 0;
+						break;
+					case 11: 
+						Pocket[0] += (Pocket[4] + Pocket[10]);
+						Pocket[4] = 0;
+						Pocket[10] = 0;
+						break;
+					case 12: 
+						Pocket[0] += (Pocket[5] + Pocket[9]);
+						Pocket[5] = 0;
+						Pocket[9] = 0;
+						break;
+						
+					case 13: 
+						Pocket[0] += (Pocket[6] + Pocket[8]);
+						Pocket[6] = 0;
+						Pocket[8] = 0;
+						break;
 				
 			}
 			
 			
-			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection == 7) {
+			if (x == 1 && playerTurn == 1 && selection == 7) {
 				bonusTurn = true;
 			}
-			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 && selection == 0) {
+			else if (x == 1 && playerTurn == 2 && selection == 0) {
 				bonusTurn = true;
 			}
 		}
-		
+		}
 		
 	}
 	
-	void capturePocket(boolean emptyPocket) {
-		if (emptyPocket == true) {
-			
-		}
-	}
+	
 	
 	boolean checkPocket(){
 		return emptyPocket;
