@@ -4,7 +4,8 @@ public class GameRules {
 	
 	boolean emptyPocket = false;
 	boolean bonusTurn = false;
-	void stoneMovement(int [] Pocket, int selection, int playerTurn) {
+	//function stoneMovement returns an array and takes the GUI array, what pocket is currently selected and what turn it currently is
+	int[] stoneMovement(int [] Pocket, int selection, int playerTurn) {
 		int stoneNumber = Pocket[selection];//gets the current selected number of stones
 		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
 		selection += 1; //Makes sure that it starts adding to next pocket
@@ -140,7 +141,7 @@ public class GameRules {
 			}
 		}
 		}
-		
+		return Pocket; //returns the changed array
 	}
 	
 	
