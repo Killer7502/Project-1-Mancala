@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 /**
  * Basic Mancala board GUI.
  * @author Natalie Williams
- * @version 1.3
+ * @version 1.4
  */
 public class MancalaGUI {
 
@@ -39,8 +39,8 @@ public class MancalaGUI {
 	private RoundedTextField txtPocketB4;
 	private RoundedTextField txtPocketB5;
 	private RoundedTextField txtPocketB6;
-	private JButton btnExit;
-	private JButton btnStart;
+	private JButton btnRestart;	// Restarts the game.
+	private JButton btnStart;	// Starts the game.
 	private JButton btnA1;
 	private JButton btnA2;
 	private JButton btnA3;
@@ -288,9 +288,50 @@ public class MancalaGUI {
 			}
 		});
 		
-		btnExit.addActionListener(new ActionListener() {
+		btnRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnStart.setEnabled(true);
+				btnA1.setEnabled(false);
+				btnA2.setEnabled(false);
+				btnA3.setEnabled(false);
+				btnA4.setEnabled(false);
+				btnA5.setEnabled(false);
+				btnA6.setEnabled(false);
 				
+				btnB1.setEnabled(false);
+				btnB2.setEnabled(false);
+				btnB3.setEnabled(false);
+				btnB4.setEnabled(false);
+				btnB5.setEnabled(false);
+				btnB6.setEnabled(false);
+				
+				pocketCount[0] = 0;
+				txtLeftMancala.setText("        " + pocketCount[0]);
+				
+				pocketCount[7] = 0;
+				txtRightMancala.setText("        " + pocketCount[7]);
+				
+				for (int i = 1; i < 7; ++i) {
+					pocketCount[i] = 4;
+				}
+				
+				for (int i = 8; i < pocketCount.length; ++i) {
+					pocketCount[i] = 4;
+				}
+				
+				txtPocketA1.setText("      " + pocketCount[1]);
+				txtPocketA2.setText("      " + pocketCount[2]);
+				txtPocketA3.setText("      " + pocketCount[3]);
+				txtPocketA4.setText("      " + pocketCount[4]);
+				txtPocketA5.setText("      " + pocketCount[5]);
+				txtPocketA6.setText("      " + pocketCount[6]);
+				
+				txtPocketB1.setText("      " + pocketCount[13]);
+				txtPocketB2.setText("      " + pocketCount[12]);
+				txtPocketB3.setText("      " + pocketCount[11]);
+				txtPocketB4.setText("      " + pocketCount[10]);
+				txtPocketB5.setText("      " + pocketCount[9]);
+				txtPocketB6.setText("      " + pocketCount[8]);
 			}
 		});
 	}
@@ -315,8 +356,8 @@ public class MancalaGUI {
 		btnStart = new JButton("Start");
 		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		btnExit = new JButton("Exit");
-		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnRestart = new JButton("Restart");
+		btnRestart.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GroupLayout groupLayout = new GroupLayout(frmMancala.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -331,7 +372,7 @@ public class MancalaGUI {
 							.addGap(414)
 							.addComponent(btnStart, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
 							.addGap(60)
-							.addComponent(btnExit, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+							.addComponent(btnRestart, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
 							.addGap(405)))
 					.addContainerGap())
 		);
@@ -342,7 +383,7 @@ public class MancalaGUI {
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnExit)
+						.addComponent(btnRestart)
 						.addComponent(btnStart))
 					.addGap(18)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)
