@@ -20,9 +20,11 @@ import java.awt.event.ActionEvent;
 /**
  * Basic Mancala board GUI.
  * @author Natalie Williams
- * @version 1.4
+ * @version 1.5
  */
 public class MancalaGUI {
+	
+	private GameRules gameRules = new GameRules();
 
 	private JFrame frmMancala;
 	private JTextField txtLeftMancala;
@@ -65,7 +67,7 @@ public class MancalaGUI {
 	private int pocketIndex;	// Index of selected pocket.
 	private int playerTurn = 0; // Keeps track of the players turn. 1 = Player 1, 2 = Player 2
 	private boolean bonusTurn = false;	// Stores whether or not the player gets an extra turn that round.
-	private boolean emptyPocket = true; // Stores whether or not the players last piece landed in an empty pocket.
+	private boolean emptyPocket = false; // Stores whether or not the players last piece landed in an empty pocket.
 
 	/**
 	 * Launch the application.
@@ -100,9 +102,26 @@ public class MancalaGUI {
 			txtrGameLog.append("\n\nError: Pocket empty.\n");
 		}
 		else {
-			//TODO: Add method call for GameRules class.
-			//TODO: Add method call for GameRules class.
-			//TODO: Add method call for GameRules class.
+			//pocketCount = gameRules.stoneMovement(pocketCount, pocketIndex, playerTurn);
+			//emptyPocket = gameRules.checkPocket();
+			//bonusTurn = gameRules.bonusTurn();
+			
+			txtLeftMancala.setText("        " + pocketCount[0]);
+			txtRightMancala.setText("        " + pocketCount[7]);
+			
+			txtPocketA1.setText("      " + pocketCount[1]);
+			txtPocketA2.setText("      " + pocketCount[2]);
+			txtPocketA3.setText("      " + pocketCount[3]);
+			txtPocketA4.setText("      " + pocketCount[4]);
+			txtPocketA5.setText("      " + pocketCount[5]);
+			txtPocketA6.setText("      " + pocketCount[6]);
+			
+			txtPocketB1.setText("      " + pocketCount[13]);
+			txtPocketB2.setText("      " + pocketCount[12]);
+			txtPocketB3.setText("      " + pocketCount[11]);
+			txtPocketB4.setText("      " + pocketCount[10]);
+			txtPocketB5.setText("      " + pocketCount[9]);
+			txtPocketB6.setText("      " + pocketCount[8]);
 			
 			switch (playerTurn) {
 			case 1:
