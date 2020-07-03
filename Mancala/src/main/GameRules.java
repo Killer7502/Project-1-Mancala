@@ -2,21 +2,160 @@ package main;
 
 public class GameRules {
 	
-
-	void stoneMovement() {
+	boolean emptyPocket = false;
+	boolean bonusTurn = false;
+	//function stoneMovement returns an array and takes the GUI array, what pocket is currently selected and what turn it currently is
+	int[] stoneMovement(int [] Pocket, int selection, int playerTurn) {
 		int stoneNumber = Pocket[selection];//gets the current selected number of stones
 		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
 		selection += 1; //Makes sure that it starts adding to next pocket
-		for (x= = stoneNumber, x > 0, x--) {//Loops through until all stones are used 
-			if (selection == maxNumber) { //uses this if statment if max number of array is reached
-				Pocket[selection] +=1; // adds 1 to current pocket
-				selection = 0; // resets to begining 
+		for (int x = stoneNumber; x > 0; x--) {//Loops through until all stones are used 
+			
+		
+			if (x == stoneNumber) { // If fist part of loop make sure booleans are false
+				emptyPocket = false;
+				bonusTurn = false;
 			}
-			else { // if still with in bounds of array
+			
+			if (selection == 13) { //uses this if statement if max number of array is reached
+				
+				Pocket[selection] +=1; // adds 1 to current pocket
+				if (x != 1) { // makes sure that it is not last part of the loop
+					selection = 0; // resets to beginning 
+				}
+				
+				
+			}
+			
+			else if (playerTurn == 1 && selection == 0) {
+				selection = 1; // continues to next pocket skipping opponents mancala 
 				Pocket[selection] +=1;
-				selection += 1; // continues to next pocket
-      }
-    }
+				if (x != 1) {
+					selection += 1; // continues to next pocket if not last part of loop
+				}
+			}
+			
+			
+			else { // if still with in bounds of array
+				if (playerTurn == 2 && selection == 7) {
+					selection = 8; // continues to next pocket skipping opponents mancala 
+					Pocket[selection] +=1;
+					if (x != 1) {
+						selection += 1; // continues to next pocket
+					}
+					
+				}
+				else {
+					Pocket[selection] +=1;
+					if (x != 1) {
+						selection += 1; // continues to next pocket
+					}
+					
+				}
+				
+			}
+			
+			
+			//checks if on final stone if the pocket was empty and what players turn it was
+			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection < 7 && selection != 0) {
+				emptyPocket = true;
+				
+				switch (selection) {//captures other side and adds to mancala
+				case 1: 
+					Pocket[7] += (Pocket[1] + Pocket[13]);
+					Pocket[1] = 0;
+					Pocket[13] = 0;
+					break;
+				case 2: 
+					Pocket[7] += (Pocket[2] + Pocket[12]);
+					Pocket[2] = 0;
+					Pocket[12] = 0;
+					break;
+				case 3: 
+					Pocket[7] += (Pocket[3] + Pocket[11]);
+					Pocket[3] = 0;
+					Pocket[11] = 0;
+					break;
+				case 4: 
+					Pocket[7] += (Pocket[4] + Pocket[10]);
+					Pocket[4] = 0;
+					Pocket[10] = 0;
+					break;
+				case 5: 
+					Pocket[7] += (Pocket[5] + Pocket[9]);
+					Pocket[5] = 0;
+					Pocket[9] = 0;
+					break;
+					
+				case 6: 
+					Pocket[7] += (Pocket[6] + Pocket[8]);
+					Pocket[6] = 0;
+					Pocket[8] = 0;
+					break;
+				}
+			
+			}
+			else if (Pocket[selection] == 1 && x == 1 && playerTurn == 2 && selection > 7 ) {
+					emptyPocket = true;
+					switch (selection) {
+					case 8: 
+						Pocket[0] += (Pocket[1] + Pocket[13]);
+						Pocket[1] = 0;
+						Pocket[13] = 0;
+						break;
+					case 9: 
+						Pocket[0] += (Pocket[2] + Pocket[12]);
+						Pocket[2] = 0;
+						Pocket[12] = 0;
+						break;
+					case 10: 
+						Pocket[0] += (Pocket[3] + Pocket[11]);
+						Pocket[3] = 0;
+						Pocket[11] = 0;
+						break;
+					case 11: 
+						Pocket[0] += (Pocket[4] + Pocket[10]);
+						Pocket[4] = 0;
+						Pocket[10] = 0;
+						break;
+					case 12: 
+						Pocket[0] += (Pocket[5] + Pocket[9]);
+						Pocket[5] = 0;
+						Pocket[9] = 0;
+						break;
+						
+					case 13: 
+						Pocket[0] += (Pocket[6] + Pocket[8]);
+						Pocket[6] = 0;
+						Pocket[8] = 0;
+						break;
+				
+			}
+			
+			
+			if (x == 1 && playerTurn == 1 && selection == 7) {
+				bonusTurn = true;
+			}
+			else if (x == 1 && playerTurn == 2 && selection == 0) {
+				bonusTurn = true;
+			}
+		}
+		}
+		return Pocket; //returns the changed array
+	}
+	
+	
+	
+	boolean checkPocket(){
+		return emptyPocket;
+	}
+	boolean bonusTurn(){
+		return bonusTurn;
+	}
+	
+	
+	
+
 
         
 	//Checks to see if the player who's turn it is can make the move depending on if the compartment chosen is on their side or not.
@@ -60,4 +199,5 @@ public class GameRules {
 				//Move onto code for moving the pieces
 			}
 		}
+
 }
