@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 /**
  * Basic Mancala board GUI.
  * @author Natalie Williams
- * @version 1.5
+ * @version 1.6
  */
 public class MancalaGUI {
 	
@@ -92,6 +92,92 @@ public class MancalaGUI {
 		initialize();
 		eventHandler();
 	}
+	
+	/**
+	 * Checks to see if the game should end.
+	 * @param pocketCount
+	 * @return pocketCount
+	 */
+	private void checkEnd() {
+		boolean topEmpty = false;	// Stores whether or not the top row is empty.
+		boolean bottomEmpty = false;	// Stores whether or not the bottom row is empty.
+		int pocketTotal = 0;	// Total pieces left in the pockets.
+		
+		topEmpty = true;
+		bottomEmpty = true;
+		
+		
+		/* Check bottom side for empty pockets.
+		 * If any pocket does not equal 0, break as there are still pieces left on this side.
+		 */
+		for (int i = 1; i < 7; ++i) {
+			if (pocketCount[i] != 0) {
+				bottomEmpty = false;
+				break;
+			}
+		}
+		
+		/* Check bottom side for empty pockets.
+		 * If any pocket does not equal 0, break as there are still pieces left on this side.
+		 */
+		for (int i = 8; i < pocketCount.length; ++i) {
+			if (pocketCount[i] != 0) {
+				topEmpty = false;
+				break;
+			}
+		}
+		
+		// If either are empty.
+		if (topEmpty || bottomEmpty) {
+			//////////////////////////////////////////////////////////////////////
+			//Takes all pieces from the bottom and adds them to the left Mancala.
+			//Shouldn't matter if they're all empty.
+			//////////////////////////////////////////////////////////////////////
+			for (int i = 1; i < 7; ++i) {
+				pocketTotal = pocketTotal + pocketCount[i];
+				pocketCount[i] = 0;
+			}
+			
+			pocketCount[7] = pocketCount[7] + pocketTotal;
+			pocketTotal = 0;
+			
+			//////////////////////////////////////////////////////////////////////
+			//Takes all pieces from the top and adds them to the right Mancala.
+			//Shouldn't matter if they're all empty.
+			//////////////////////////////////////////////////////////////////////
+			for (int i = 8; i < pocketCount.length; ++i) {
+				pocketTotal = pocketTotal + pocketCount[i];
+				pocketCount[i] = 0;
+			}
+			
+			pocketCount[0] = pocketCount[0] + pocketTotal;
+			pocketTotal = 0;
+			
+			// Checks to see who won.
+			if (pocketCount[7] > pocketCount[0]) {
+				txtrGameLog.append("\nPlayer 1 wins!!!");
+			}
+			else {
+				txtrGameLog.append("\nPlayer 2 wins!!!");
+			}
+			
+			btnRestart.setEnabled(true);
+			btnA1.setEnabled(false);
+			btnA2.setEnabled(false);
+			btnA3.setEnabled(false);
+			btnA4.setEnabled(false);
+			btnA5.setEnabled(false);
+			btnA6.setEnabled(false);
+			
+			btnB1.setEnabled(false);
+			btnB2.setEnabled(false);
+			btnB3.setEnabled(false);
+			btnB4.setEnabled(false);
+			btnB5.setEnabled(false);
+			btnB6.setEnabled(false);
+		}
+	}
+	
 	/**
 	 * Method for handling turns,
 	 * pocketIndex should be passed to i.
@@ -102,26 +188,9 @@ public class MancalaGUI {
 			txtrGameLog.append("\n\nError: Pocket empty.\n");
 		}
 		else {
-			//pocketCount = gameRules.stoneMovement(pocketCount, pocketIndex, playerTurn);
-			//emptyPocket = gameRules.checkPocket();
-			//bonusTurn = gameRules.bonusTurn();
-			
-			txtLeftMancala.setText("        " + pocketCount[0]);
-			txtRightMancala.setText("        " + pocketCount[7]);
-			
-			txtPocketA1.setText("      " + pocketCount[1]);
-			txtPocketA2.setText("      " + pocketCount[2]);
-			txtPocketA3.setText("      " + pocketCount[3]);
-			txtPocketA4.setText("      " + pocketCount[4]);
-			txtPocketA5.setText("      " + pocketCount[5]);
-			txtPocketA6.setText("      " + pocketCount[6]);
-			
-			txtPocketB1.setText("      " + pocketCount[13]);
-			txtPocketB2.setText("      " + pocketCount[12]);
-			txtPocketB3.setText("      " + pocketCount[11]);
-			txtPocketB4.setText("      " + pocketCount[10]);
-			txtPocketB5.setText("      " + pocketCount[9]);
-			txtPocketB6.setText("      " + pocketCount[8]);
+			pocketCount = gameRules.stoneMovement(pocketCount, pocketIndex, playerTurn);
+			emptyPocket = gameRules.checkPocket();
+			bonusTurn = gameRules.bonusTurn();
 			
 			switch (playerTurn) {
 			case 1:
@@ -188,6 +257,25 @@ public class MancalaGUI {
 				}
 				break;
 			}
+			
+			checkEnd();
+			
+			txtLeftMancala.setText("        " + pocketCount[0]);
+			txtRightMancala.setText("        " + pocketCount[7]);
+			
+			txtPocketA1.setText("      " + pocketCount[1]);
+			txtPocketA2.setText("      " + pocketCount[2]);
+			txtPocketA3.setText("      " + pocketCount[3]);
+			txtPocketA4.setText("      " + pocketCount[4]);
+			txtPocketA5.setText("      " + pocketCount[5]);
+			txtPocketA6.setText("      " + pocketCount[6]);
+			
+			txtPocketB1.setText("      " + pocketCount[13]);
+			txtPocketB2.setText("      " + pocketCount[12]);
+			txtPocketB3.setText("      " + pocketCount[11]);
+			txtPocketB4.setText("      " + pocketCount[10]);
+			txtPocketB5.setText("      " + pocketCount[9]);
+			txtPocketB6.setText("      " + pocketCount[8]);
 		}
 	}
 	
