@@ -8,7 +8,15 @@ public class GameRules {
 	int[] stoneMovement(int [] Pocket, int selection, int playerTurn) {
 		int stoneNumber = Pocket[selection];//gets the current selected number of stones
 		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
-		selection += 1; //Makes sure that it starts adding to next pocket
+		
+		//BUGFIX: Issue #25
+		if (selection == 13) { //If the selection is number 13, reset selection to 0 and then start adding to pockets.
+			selection = 0;
+		}
+		else { //If the selection is anything other than 13, add 1 to selection to make sure that it starts adding to the next pocket
+			selection += 1;
+		}
+		
 		for (int x = stoneNumber; x > 0; x--) {//Loops through until all stones are used 
 			
 		
