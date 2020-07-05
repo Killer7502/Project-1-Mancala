@@ -65,6 +65,7 @@ public class GameRules {
 			
 			
 			//checks if on final stone if the pocket was empty and what players turn it was
+			System.out.println("Selection = " + selection + "\nSelection Num = " + Pocket[selection] + "\nX = " + x + "\nPlayer Turn = " + playerTurn + "\n");
 			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection < 7 && selection != 0) {
 				emptyPocket = true;
 				
@@ -107,35 +108,35 @@ public class GameRules {
 					emptyPocket = true;
 					switch (selection) {
 					case 8: 
-						Pocket[0] += (Pocket[1] + Pocket[13]);
-						Pocket[1] = 0;
-						Pocket[13] = 0;
+						Pocket[0] += (Pocket[6] + Pocket[8]);
+						Pocket[6] = 0;
+						Pocket[8] = 0;
 						break;
 					case 9: 
-						Pocket[0] += (Pocket[2] + Pocket[12]);
-						Pocket[2] = 0;
-						Pocket[12] = 0;
-						break;
-					case 10: 
-						Pocket[0] += (Pocket[3] + Pocket[11]);
-						Pocket[3] = 0;
-						Pocket[11] = 0;
-						break;
-					case 11: 
-						Pocket[0] += (Pocket[4] + Pocket[10]);
-						Pocket[4] = 0;
-						Pocket[10] = 0;
-						break;
-					case 12: 
 						Pocket[0] += (Pocket[5] + Pocket[9]);
 						Pocket[5] = 0;
 						Pocket[9] = 0;
 						break;
+					case 10: 
+						Pocket[0] += (Pocket[4] + Pocket[10]);
+						Pocket[4] = 0;
+						Pocket[10] = 0;
+						break;
+					case 11: 
+						Pocket[0] += (Pocket[3] + Pocket[11]);
+						Pocket[3] = 0;
+						Pocket[11] = 0;
+						break;
+					case 12: 
+						Pocket[0] += (Pocket[2] + Pocket[12]);
+						Pocket[2] = 0;
+						Pocket[12] = 0;
+						break;
 						
 					case 13: 
-						Pocket[0] += (Pocket[6] + Pocket[8]);
-						Pocket[6] = 0;
-						Pocket[8] = 0;
+						Pocket[0] += (Pocket[1] + Pocket[13]);
+						Pocket[1] = 0;
+						Pocket[13] = 0;
 						break;
 				
 			}
@@ -143,9 +144,11 @@ public class GameRules {
 			
 			if (x == 1 && playerTurn == 1 && selection == 7) {
 				bonusTurn = true;
+				//System.out.println("Bonus turn player 1 entered");
 			}
 			else if (x == 1 && playerTurn == 2 && selection == 0) {
 				bonusTurn = true;
+				//System.out.println("Bonus turn player 2 entered");
 			}
 		}
 		}
@@ -158,6 +161,7 @@ public class GameRules {
 		return emptyPocket;
 	}
 	boolean bonusTurn(){
+		//System.out.println("Bonus turn check called: boolean = " + bonusTurn);
 		return bonusTurn;
 	}
 	
