@@ -65,7 +65,6 @@ public class GameRules {
 			
 			
 			//checks if on final stone if the pocket was empty and what players turn it was
-			System.out.println("Selection = " + selection + "\nSelection Num = " + Pocket[selection] + "\nX = " + x + "\nPlayer Turn = " + playerTurn + "\n");
 			if (Pocket[selection] == 1 && x == 1 && playerTurn == 1 && selection < 7 && selection != 0) {
 				emptyPocket = true;
 				
@@ -139,18 +138,16 @@ public class GameRules {
 						Pocket[13] = 0;
 						break;
 				
+					}
 			}
 			
-			
+			//Check if either player gets a bonus turn
 			if (x == 1 && playerTurn == 1 && selection == 7) {
 				bonusTurn = true;
-				//System.out.println("Bonus turn player 1 entered");
 			}
 			else if (x == 1 && playerTurn == 2 && selection == 0) {
 				bonusTurn = true;
-				//System.out.println("Bonus turn player 2 entered");
 			}
-		}
 		}
 		return Pocket; //returns the changed array
 	}
@@ -161,7 +158,7 @@ public class GameRules {
 		return emptyPocket;
 	}
 	boolean bonusTurn(){
-		//System.out.println("Bonus turn check called: boolean = " + bonusTurn);
+		System.out.println("Bonus turn check called: boolean = " + bonusTurn);
 		return bonusTurn;
 	}
 	
