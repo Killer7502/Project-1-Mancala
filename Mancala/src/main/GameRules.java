@@ -8,7 +8,15 @@ public class GameRules {
 	int[] stoneMovement(int [] Pocket, int selection, int playerTurn) {
 		int stoneNumber = Pocket[selection];//gets the current selected number of stones
 		Pocket[selection] = 0; // makes sure that that the selected pocket is emptied
-		selection += 1; //Makes sure that it starts adding to next pocket
+		
+		//BUGFIX: Issue #25
+		if (selection == 13) { //If the selection is number 13, reset selection to 0 and then start adding to pockets.
+			selection = 0;
+		}
+		else { //If the selection is anything other than 13, add 1 to selection to make sure that it starts adding to the next pocket
+			selection += 1;
+		}
+		
 		for (int x = stoneNumber; x > 0; x--) {//Loops through until all stones are used 
 			
 		
@@ -99,47 +107,47 @@ public class GameRules {
 					emptyPocket = true;
 					switch (selection) {
 					case 8: 
-						Pocket[0] += (Pocket[1] + Pocket[13]);
-						Pocket[1] = 0;
-						Pocket[13] = 0;
-						break;
-					case 9: 
-						Pocket[0] += (Pocket[2] + Pocket[12]);
-						Pocket[2] = 0;
-						Pocket[12] = 0;
-						break;
-					case 10: 
-						Pocket[0] += (Pocket[3] + Pocket[11]);
-						Pocket[3] = 0;
-						Pocket[11] = 0;
-						break;
-					case 11: 
-						Pocket[0] += (Pocket[4] + Pocket[10]);
-						Pocket[4] = 0;
-						Pocket[10] = 0;
-						break;
-					case 12: 
-						Pocket[0] += (Pocket[5] + Pocket[9]);
-						Pocket[5] = 0;
-						Pocket[9] = 0;
-						break;
-						
-					case 13: 
 						Pocket[0] += (Pocket[6] + Pocket[8]);
 						Pocket[6] = 0;
 						Pocket[8] = 0;
 						break;
+					case 9: 
+						Pocket[0] += (Pocket[5] + Pocket[9]);
+						Pocket[5] = 0;
+						Pocket[9] = 0;
+						break;
+					case 10: 
+						Pocket[0] += (Pocket[4] + Pocket[10]);
+						Pocket[4] = 0;
+						Pocket[10] = 0;
+						break;
+					case 11: 
+						Pocket[0] += (Pocket[3] + Pocket[11]);
+						Pocket[3] = 0;
+						Pocket[11] = 0;
+						break;
+					case 12: 
+						Pocket[0] += (Pocket[2] + Pocket[12]);
+						Pocket[2] = 0;
+						Pocket[12] = 0;
+						break;
+						
+					case 13: 
+						Pocket[0] += (Pocket[1] + Pocket[13]);
+						Pocket[1] = 0;
+						Pocket[13] = 0;
+						break;
 				
+					}
 			}
 			
-			
+			//Check if either player gets a bonus turn
 			if (x == 1 && playerTurn == 1 && selection == 7) {
 				bonusTurn = true;
 			}
 			else if (x == 1 && playerTurn == 2 && selection == 0) {
 				bonusTurn = true;
 			}
-		}
 		}
 		return Pocket; //returns the changed array
 	}
@@ -150,6 +158,7 @@ public class GameRules {
 		return emptyPocket;
 	}
 	boolean bonusTurn(){
+		System.out.println("Bonus turn check called: boolean = " + bonusTurn);
 		return bonusTurn;
 	}
 	
