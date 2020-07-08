@@ -3,6 +3,7 @@ package main;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
+import java.awt.Color;
 
 import javax.swing.JTextField;
 
@@ -22,7 +23,7 @@ public class RoundedTextField extends JTextField {
 	   setOpaque(false);
 	}
 	protected void paintComponent(Graphics g) {
-	   g.setColor(getBackground());
+	   g.setColor(new Color(161, 103, 53));
 	   g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
 	   super.paintComponent(g);
 	}

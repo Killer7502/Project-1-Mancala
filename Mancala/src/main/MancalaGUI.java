@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,6 +17,7 @@ import java.awt.SystemColor;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 /**
  * Basic Mancala board GUI.
@@ -68,6 +70,7 @@ public class MancalaGUI {
 	private int playerTurn = 0; // Keeps track of the players turn. 1 = Player 1, 2 = Player 2
 	private boolean bonusTurn = false;	// Stores whether or not the player gets an extra turn that round.
 	private boolean emptyPocket = false; // Stores whether or not the players last piece landed in an empty pocket.
+	private String iconToLoad = "";
 
 	/**
 	 * Launch the application.
@@ -290,7 +293,8 @@ public class MancalaGUI {
 			public void actionPerformed(ActionEvent e) {
 				playerTurn = 1;
 				pocketIndex = 1;
-				turnHandler(pocketIndex);
+				turnHandler(pocketIndex);				
+				updateIcons();
 			}
 		});
 		
@@ -299,6 +303,7 @@ public class MancalaGUI {
 				playerTurn = 1;
 				pocketIndex = 2;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -307,6 +312,7 @@ public class MancalaGUI {
 				playerTurn = 1;
 				pocketIndex = 3;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -315,6 +321,7 @@ public class MancalaGUI {
 				playerTurn = 1;
 				pocketIndex = 4;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -323,6 +330,7 @@ public class MancalaGUI {
 				playerTurn = 1;
 				pocketIndex = 5;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -331,6 +339,7 @@ public class MancalaGUI {
 				playerTurn = 1;
 				pocketIndex = 6;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -339,6 +348,7 @@ public class MancalaGUI {
 				playerTurn = 2;
 				pocketIndex = 13;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -347,6 +357,7 @@ public class MancalaGUI {
 				playerTurn = 2;
 				pocketIndex = 12;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -355,6 +366,7 @@ public class MancalaGUI {
 				playerTurn = 2;
 				pocketIndex = 11;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -363,6 +375,7 @@ public class MancalaGUI {
 				playerTurn = 2;
 				pocketIndex = 10;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -371,6 +384,7 @@ public class MancalaGUI {
 				playerTurn = 2;
 				pocketIndex = 9;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -379,6 +393,7 @@ public class MancalaGUI {
 				playerTurn = 2;
 				pocketIndex = 8;
 				turnHandler(pocketIndex);
+				updateIcons();
 			}
 		});
 		
@@ -392,6 +407,7 @@ public class MancalaGUI {
 				btnA4.setEnabled(true);
 				btnA5.setEnabled(true);
 				btnA6.setEnabled(true);
+				updateIcons();
 			}
 		});
 		
@@ -439,8 +455,121 @@ public class MancalaGUI {
 				txtPocketB4.setText("      " + pocketCount[10]);
 				txtPocketB5.setText("      " + pocketCount[9]);
 				txtPocketB6.setText("      " + pocketCount[8]);
+				updateIcons();
 			}
 		});
+	}
+	
+	private void updateIcons() {
+		
+		if (pocketCount[1] <= 0) {
+			btnA1.setIcon(null);
+		} else if (pocketCount[1] <= 6) {
+			iconToLoad = "marble" + pocketCount[1] + ".png";
+			btnA1.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnA1.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[2] <= 0) {
+			btnA2.setIcon(null);;
+		} else if (pocketCount[2] <= 6) {
+			iconToLoad = "marble" + pocketCount[2] + ".png";
+			btnA2.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnA2.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[3] <= 0) {
+			btnA3.setIcon(null);;
+		} else if (pocketCount[3] <= 6) {
+			iconToLoad = "marble" + pocketCount[3] + ".png";
+			btnA3.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnA1.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[4] <= 0) {
+			btnA4.setIcon(null);;
+		} else if (pocketCount[4] <= 6) {
+			iconToLoad = "marble" + pocketCount[4] + ".png";
+			btnA4.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnA4.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[5] <= 0) {
+			btnA5.setIcon(null);;
+		} else if (pocketCount[5] <= 6) {
+			iconToLoad = "marble" + pocketCount[5] + ".png";
+			btnA5.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnA5.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[6] <= 0) {
+			btnA6.setIcon(null);;
+		} else if (pocketCount[6] <= 6) {
+			iconToLoad = "marble" + pocketCount[6] + ".png";
+			btnA6.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnA6.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[13] <= 0) {
+			btnB1.setIcon(null);;
+		} else if (pocketCount[13] <= 6) {
+			iconToLoad = "marble" + pocketCount[13] + ".png";
+			btnB1.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnB1.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[12] <= 0) {
+			btnB2.setIcon(null);;
+		} else if (pocketCount[12] <= 6) {
+			iconToLoad = "marble" + pocketCount[12] + ".png";
+			btnB2.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnB2.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[11] <= 0) {
+			btnB3.setIcon(null);;
+		} else if (pocketCount[11] <= 6) {
+			iconToLoad = "marble" + pocketCount[11] + ".png";
+			btnB3.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnB3.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[10] <= 0) {
+			btnB4.setIcon(null);;
+		} else if (pocketCount[10] <= 6) {
+			iconToLoad = "marble" + pocketCount[10] + ".png";
+			btnB4.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnB4.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[9] <= 0) {
+			btnB5.setIcon(null);;
+		} else if (pocketCount[9] <= 6) {
+			iconToLoad = "marble" + pocketCount[9] + ".png";
+			btnB5.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnB5.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
+		if (pocketCount[8] <= 0) {
+			btnB6.setIcon(null);;
+		} else if (pocketCount[8] <= 6) {
+			iconToLoad = "marble" + pocketCount[8] + ".png";
+			btnB6.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/" + iconToLoad)));
+		} else {
+			btnB6.setIcon(new ImageIcon(MancalaGUI.class.getResource("/resources/marble7.png")));
+		}
+		
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -459,6 +588,7 @@ public class MancalaGUI {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBackground(new Color(194, 126, 66));
 		
 		btnStart = new JButton("Start");
 		btnStart.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -517,6 +647,7 @@ public class MancalaGUI {
 		txtPocketA1.setBackground(SystemColor.textHighlightText);
 		txtPocketA1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtPocketA1.setText("      " + pocketCount[1]);
+		//txtPocketA1.setIcon(new ImageIcon(MancalaBoard.class.getResource("/resources/space.png")));
 		
 		txtPocketA2 = new RoundedTextField(15);
 		txtPocketA2.setColumns(10);
@@ -598,50 +729,62 @@ public class MancalaGUI {
 		btnA1 = new JButton("A-1");
 		btnA1.setEnabled(false);
 		btnA1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnA1.setBackground(new Color (207, 158, 116));
 		
 		btnA2 = new JButton("A-2");
 		btnA2.setEnabled(false);
 		btnA2.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnA2.setBackground(new Color (207, 158, 116));
 		
 		btnA3 = new JButton("A-3");
 		btnA3.setEnabled(false);
 		btnA3.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnA3.setBackground(new Color (207, 158, 116));
 		
 		btnA4 = new JButton("A-4");
 		btnA4.setEnabled(false);
 		btnA4.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnA4.setBackground(new Color (207, 158, 116));
 		
 		btnA5 = new JButton("A-5");
 		btnA5.setEnabled(false);
 		btnA5.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnA5.setBackground(new Color (207, 158, 116));
 		
 		btnA6 = new JButton("A-6");
 		btnA6.setEnabled(false);
 		btnA6.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnA6.setBackground(new Color (207, 158, 116));
 		
 		btnB1 = new JButton("B-1");
 		btnB1.setEnabled(false);
 		btnB1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnB1.setBackground(new Color (207, 158, 116));
 		
 		btnB2 = new JButton("B-2");
 		btnB2.setEnabled(false);
 		btnB2.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnB2.setBackground(new Color (207, 158, 116));
 		
 		btnB3 = new JButton("B-3");
 		btnB3.setEnabled(false);
 		btnB3.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnB3.setBackground(new Color (207, 158, 116));
 		
 		btnB4 = new JButton("B-4");
 		btnB4.setEnabled(false);
 		btnB4.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnB4.setBackground(new Color (207, 158, 116));
 		
 		btnB5 = new JButton("B-5");
 		btnB5.setEnabled(false);
 		btnB5.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnB5.setBackground(new Color (207, 158, 116));
 		
 		btnB6 = new JButton("B-6");
 		btnB6.setEnabled(false);
 		btnB6.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnB6.setBackground(new Color (207, 158, 116));
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
